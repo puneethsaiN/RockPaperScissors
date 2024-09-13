@@ -68,5 +68,5 @@ function playGame() {
     }
 }
 
-playGame();
+// playGame();
 
