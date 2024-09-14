@@ -1,72 +1,102 @@
 let choices = ["Rock", "Paper", "Scissors"];
 let humanScore = 0, computerScore = 0;
 
+let nextRound = true, gameover = false;
+
+let startButton = document.querySelector(".btn-start");
+let declareText = document.querySelector(".declare-text");
+
+btnRock.addEventListener("click", (e) => {
+    playRound("Rock", e.target);
+});
+
+btnPaper.addEventListener("click", (e) => {
+    playRound("Paper", e.target);
+});
+
+btnScissors.addEventListener("click", (e) => {
+    playRound("Scissors", e.target);
+});
+
+
 function getComputerChoice() {
     return choices[Math.floor(Math.random() * 3)];
 }
 
-function getHumanChoice() {
-    while(!i){
-        var i = prompt("Enter your choice\n1 => Rock\n2 => Paper\n3 => Scissors");
-    }
-    let choice = parseInt(i);
-    if(choice < 1 || choice > 3){
-        alert("Invalid Choice");
-        return getHumanChoice();
-    }
-    else{
-        return choices[choice - 1];
-    }
+function resetGame() {
+    gameover = false;
+    declareText.innerText = "";
+    startButton.innerText = "Start";
+    humanScore = computerScore = 0;
+    updateScore();
 }
 
-function playGame() {
-    function playRound(getHumanChoice, getComputerChoice) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
+function updateScore() {
+    let playerDisplay = document.querySelector(".player-score");
+    let computerDisplay = document.querySelector(".computer-score");
 
-        if((humanChoice == "Rock" && computerChoice == "Scissors") ||
-            (humanChoice == "Scissors" && computerChoice == "Paper") ||
-            (humanChoice == "Paper" && computerChoice == "Rock")) {
-                return 1;
-        }
-        else if(humanChoice == computerChoice){
-            return 0;
-        }
-        else{
-            return -1;
-        }
+    playerDisplay.innerText = `Player : ${humanScore}`;
+    computerDisplay.innerText = `Computer : ${computerScore}`;
+}
 
-    }  
 
-    // play 5 rounds
-    for(let i=0;i<5;i++){
-        let res = playRound(getHumanChoice, getComputerChoice);
-        if(res == 1){
+function playRound(humanChoice, btn) {
+    if(!nextRound) return;
+    startButton.innerText = "Next Round";
+    nextRound = false;
+
+    
+    let computerChoice = getComputerChoice();
+    let feedbox = document.querySelector("#feed-box");
+    feedbox.innerText = `Computer chose ${computerChoice}`;
+
+    if((humanChoice == "Rock" && computerChoice == "Scissors") ||
+        (humanChoice == "Scissors" && computerChoice == "Paper") ||
+        (humanChoice == "Paper" && computerChoice == "Rock")) {
             humanScore++;
-            alert("You Won");
-        }
-        else if(res == 0){
-            alert("It's a draw");
-        }
-        else{
-            computerScore++;
-            alert("Computer Won");
-        }
-        if(humanScore == 3 || computerScore == 3){
-            break;
-        }
+            btn.setAttribute("style", "background-color : green");
+            
     }
-
-    if(humanScore > computerScore){
-        alert("Congratulations! You are the Winner");
-    }
-    else if(humanScore < computerScore){
-        alert("LMAO you are the Loser!");
+    else if(humanChoice == computerChoice){
+        btn.setAttribute("style", "background-color : grey");
+        
     }
     else{
-        alert("Nobody won");
+        computerScore++;
+        btn.setAttribute("style", "background-color : red");
+        
     }
-}
 
-// playGame();
+    updateScore();
+
+    if(humanScore == 3 || computerScore == 3){
+        if(humanScore > computerScore){
+            declareText.innerText = "Congratulations! You are the Winner";
+        }
+        else{
+            declareText.innerText = "LMAO you are the Loser!";
+        }
+        gameover = true;
+        startButton.innerText = "Play Again";
+    }
+}  
+
+btnRock = document.querySelector(".btn-rock");
+btnPaper = document.querySelector(".btn-paper");
+btnScissors = document.querySelector(".btn-scissors");
+
+btnStart = document.querySelector(".btn-start");
+btnStart.addEventListener("click", (e) => {
+    if(!nextRound){
+        nextRound = true;
+        btnRock.setAttribute("style", "background-color : #f0f0f0");
+        btnPaper.setAttribute("style", "background-color : #f0f0f0");
+        btnScissors.setAttribute("style", "background-color : #f0f0f0");
+    }
+    if(gameover){
+        resetGame();
+    }
+});
+
+
 
