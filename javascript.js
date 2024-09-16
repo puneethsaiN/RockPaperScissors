@@ -6,6 +6,12 @@ let nextRound = true, gameover = false;
 let startButton = document.querySelector(".btn-start");
 let declareText = document.querySelector(".declare-text");
 
+let btnRock = document.querySelector(".btn-rock");
+let btnPaper = document.querySelector(".btn-paper");
+let btnScissors = document.querySelector(".btn-scissors");
+
+let btnStart = document.querySelector(".btn-start");
+
 btnRock.addEventListener("click", (e) => {
     playRound("Rock", e.target);
 });
@@ -17,6 +23,19 @@ btnPaper.addEventListener("click", (e) => {
 btnScissors.addEventListener("click", (e) => {
     playRound("Scissors", e.target);
 });
+
+btnStart.addEventListener("click", (e) => {
+    if(!nextRound){
+        nextRound = true;
+        btnRock.setAttribute("style", "background-color : #f0f0f0");
+        btnPaper.setAttribute("style", "background-color : #f0f0f0");
+        btnScissors.setAttribute("style", "background-color : #f0f0f0");
+    }
+    if(gameover){
+        resetGame();
+    }
+});
+
 
 
 function getComputerChoice() {
@@ -81,22 +100,7 @@ function playRound(humanChoice, btn) {
     }
 }  
 
-btnRock = document.querySelector(".btn-rock");
-btnPaper = document.querySelector(".btn-paper");
-btnScissors = document.querySelector(".btn-scissors");
 
-btnStart = document.querySelector(".btn-start");
-btnStart.addEventListener("click", (e) => {
-    if(!nextRound){
-        nextRound = true;
-        btnRock.setAttribute("style", "background-color : #f0f0f0");
-        btnPaper.setAttribute("style", "background-color : #f0f0f0");
-        btnScissors.setAttribute("style", "background-color : #f0f0f0");
-    }
-    if(gameover){
-        resetGame();
-    }
-});
 
 
 
