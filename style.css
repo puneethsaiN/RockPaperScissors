@@ -33,7 +33,8 @@
     border-radius: 40px;
 }
 
-.btns-container button:hover {
+.btns-container button:hover { 
+    background-color: darkslategrey;
     cursor: pointer;
 }
 

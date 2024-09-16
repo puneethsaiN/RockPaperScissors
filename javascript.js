@@ -27,9 +27,9 @@ btnScissors.addEventListener("click", (e) => {
 btnStart.addEventListener("click", (e) => {
     if(!nextRound){
         nextRound = true;
-        btnRock.setAttribute("style", "background-color : #f0f0f0");
-        btnPaper.setAttribute("style", "background-color : #f0f0f0");
-        btnScissors.setAttribute("style", "background-color : #f0f0f0");
+        btnRock.style.backgroundColor = "";
+        btnPaper.style.backgroundColor = "";
+        btnScissors.style.backgroundColor = "";
     }
     if(gameover){
         resetGame();
@@ -93,7 +93,7 @@ function playRound(humanChoice, btn) {
             declareText.innerText = "Congratulations! You are the Winner";
         }
         else{
-            declareText.innerText = "LMAO you are the Loser!";
+            declareText.innerText = "You are the Loser!";
         }
         gameover = true;
         startButton.innerText = "Play Again";
